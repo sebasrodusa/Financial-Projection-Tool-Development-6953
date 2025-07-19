@@ -1,0 +1,169 @@
+/* Custom styles for the Prosperity Projector app */
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  background: #e5e7eb;
+  outline: none;
+  border-radius: 9999px;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #1e40af;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #1e40af;
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+}
+
+/* Print styles */
+@media print {
+  .print\:hidden {
+    display: none !important;
+  }
+  
+  .print\:shadow-none {
+    box-shadow: none !important;
+  }
+  
+  .print\:rounded-none {
+    border-radius: 0 !important;
+  }
+  
+  .print\:p-0 {
+    padding: 0 !important;
+  }
+  
+  .print\:space-y-4 > * + * {
+    margin-top: 1rem !important;
+  }
+  
+  .print\:mb-4 {
+    margin-bottom: 1rem !important;
+  }
+  
+  .print\:mb-6 {
+    margin-bottom: 1.5rem !important;
+  }
+  
+  .print\:bg-gray-50 {
+    background-color: #f9fafb !important;
+  }
+  
+  body {
+    -webkit-print-color-adjust: exact;
+    color-adjust: exact;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Animation for loading states */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* Financial color utilities */
+.text-financial-blue {
+  color: #1e40af;
+}
+
+.text-financial-orange {
+  color: #ea580c;
+}
+
+.text-financial-red {
+  color: #dc2626;
+}
+
+.text-financial-green {
+  color: #16a34a;
+}
+
+.bg-financial-blue {
+  background-color: #1e40af;
+}
+
+.bg-financial-orange {
+  background-color: #ea580c;
+}
+
+.bg-financial-red {
+  background-color: #dc2626;
+}
+
+.bg-financial-green {
+  background-color: #16a34a;
+}
+
+/* Hover states */
+.hover\:bg-blue-700:hover {
+  background-color: #1d4ed8;
+}
+
+.hover\:text-financial-blue:hover {
+  color: #1e40af;
+}
+
+/* Focus states */
+.focus\:ring-financial-blue:focus {
+  --tw-ring-color: #1e40af;
+}
+
+.focus\:border-financial-blue:focus {
+  border-color: #1e40af;
+}
+
+/* Table styles */
+table {
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  border: 1px solid #e5e7eb;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+}
