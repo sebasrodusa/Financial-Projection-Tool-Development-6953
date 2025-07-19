@@ -4,7 +4,7 @@ import { useAuth } from '../contexts/AuthContext';
 import SafeIcon from '../common/SafeIcon';
 import * as FiIcons from 'react-icons/fi';
 
-const { FiTrendingUp, FiMail, FiUser } = FiIcons;
+const { FiTrendingUp, FiMail, FiUser, FiUserCheck } = FiIcons;
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -18,10 +18,25 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      await login(email, role);
+      await login(email || 'demo@example.com', role);
       navigate('/dashboard');
     } catch (error) {
       console.error('Login failed:', error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleQuickLogin = async (selectedRole) => {
+    setIsLoading(true);
+    try {
+      const email = selectedRole === 'Admin' 
+        ? 'admin@prosperityprojector.com' 
+        : 'advisor@prosperityprojector.com';
+      await login(email, selectedRole);
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Quick login failed:', error);
     } finally {
       setIsLoading(false);
     }
@@ -43,7 +58,39 @@ const Login = () => {
         </div>
 
         <div className="bg-white rounded-xl shadow-lg p-8">
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          {/* Quick Login Buttons */}
+          <div className="mb-6">
+            <h3 className="text-sm font-medium text-gray-700 mb-3">Quick Login</h3>
+            <div className="grid grid-cols-2 gap-4">
+              <button
+                onClick={() => handleQuickLogin('Financial Professional')}
+                disabled={isLoading}
+                className="flex items-center justify-center px-4 py-3 border border-gray-300 shadow-sm rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-financial-blue transition-colors"
+              >
+                <SafeIcon icon={FiUser} className="w-5 h-5 mr-2 text-financial-blue" />
+                <span>Financial Professional</span>
+              </button>
+              <button
+                onClick={() => handleQuickLogin('Admin')}
+                disabled={isLoading}
+                className="flex items-center justify-center px-4 py-3 border border-gray-300 shadow-sm rounded-lg text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-financial-blue transition-colors"
+              >
+                <SafeIcon icon={FiUserCheck} className="w-5 h-5 mr-2 text-financial-blue" />
+                <span>Admin</span>
+              </button>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <div className="w-full border-t border-gray-300"></div>
+            </div>
+            <div className="relative flex justify-center text-sm">
+              <span className="px-2 bg-white text-gray-500">Or sign in with email</span>
+            </div>
+          </div>
+
+          <form className="mt-6 space-y-6" onSubmit={handleSubmit}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
                 Email Address
@@ -56,7 +103,6 @@ const Login = () => {
                   id="email"
                   name="email"
                   type="email"
-                  required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="appearance-none relative block w-full pl-10 pr-3 py-3 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-lg focus:outline-none focus:ring-2 focus:ring-financial-blue focus:border-transparent focus:z-10"
